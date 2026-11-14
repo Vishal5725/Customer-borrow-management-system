@@ -152,9 +152,11 @@ USE_TZ = True
 
 
 # ── Static & Media files ──────────────────────────────────────────────────────
+# Static files
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGES = {
+
+STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
@@ -163,8 +165,9 @@ STATICFILES_STORAGES = {
     },
 }
 
+# Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ── Django REST Framework ─────────────────────────────────────────────────────
@@ -194,10 +197,10 @@ SIMPLE_JWT = {
 }
 
 # ── CORS ──────────────────────────────────────────────────────────────────────
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-]
+CORS_ALLOWED_ORIGINS = config(
+    'CORS_ALLOWED_ORIGINS',
+    default='http://localhost:5173'
+).split(',')
 
 CORS_ALLOW_CREDENTIALS = True
 
